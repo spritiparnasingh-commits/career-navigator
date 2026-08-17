@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Free Resources
+{% endblock %}
+
+{% block content %}
+
+<!-- ===========================
+     RESOURCES SECTION
+=========================== -->
+
+<section class="resources">
+
+    <div class="container">
+
+        <!-- Page Header -->
+
+        <div class="page-header">
+
+            <h1>
+
+                AI Generated Free Learning Resources
+
+            </h1>
+
+            <p>
+
+                Discover the best free learning resources selected by AI
+                based on your career goal, preferred domain, and experience level.
+
+            </p>
+
+        </div>
+
+        <!-- AI Resources Card -->
+
+        <div class="resources-card">
+
+            <div class="resources-title">
+
+                <h2>
+
+                    Your Personalized Learning Resources
+
+                </h2>
+
+            </div>
+
+            <!-- AI Output -->
+
+            <div id="resources-output">
+
+                {% if resources %}
+
+                    {{ resources | safe }}
+
+                {% else %}
+
+                    <div class="placeholder">
+
+                        <h3>
+
+                            📚 AI Resources Will Appear Here
+
+                        </h3>
+
+                        <p>
+
+                            Once AI is connected, this page will display
+                            categorized free resources with clickable links.
+
+                        </p>
+
+                        <br>
+
+                        <h4>
+
+                            Resources will be organized into:
+
+                        </h4>
+
+                        <ul>
+
+                            <li>📖 Official Documentation</li>
+
+                            <li>🎥 YouTube Playlists</li>
+
+                            <li>💻 GitHub Repositories</li>
+
+                            <li>📚 Free Online Courses</li>
+
+                            <li>🧩 Coding Practice Platforms</li>
+
+                            <li>📄 Blogs & Articles</li>
+
+                            <li>🏆 Interview Preparation Resources</li>
+
+                        </ul>
+
+                        <br>
+
+                        <p>
+
+                            Every resource will be provided as a
+                            <strong>clickable link</strong> so you can
+                            access it directly.
+
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Navigation Buttons -->
+
+        <div class="action-buttons">
+
+            <a href="{{ url_for('dashboard') }}" class="btn">
+
+                ← Back to Dashboard
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

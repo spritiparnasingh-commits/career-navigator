@@ -1,0 +1,165 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | User Information
+{% endblock %}
+
+{% block content %}
+
+<!-- ===========================
+     USER INFORMATION
+=========================== -->
+
+<section class="user-info">
+
+    <div class="container">
+
+        <div class="form-card">
+
+            <div class="form-header">
+
+                <h1>
+
+                    Tell Us About Yourself
+
+                </h1>
+
+                <p>
+
+                    Enter your details below to receive an AI-generated learning roadmap
+                    and discover the best free learning resources for your career.
+
+                </p>
+
+            </div>
+
+            <!-- User Information Form -->
+
+            <form action="{{ url_for('dashboard') }}" method="POST">
+
+                <!-- Full Name -->
+
+                <div class="form-group">
+
+                    <label for="name">
+
+                        Full Name
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required>
+
+                </div>
+
+                <!-- Career -->
+
+                <div class="form-group">
+
+                    <label for="career">
+
+                        Career You Are Interested In
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="career"
+                        name="career"
+                        placeholder="Example: AI Engineer"
+                        autocomplete="off"
+                        required>
+
+                </div>
+
+                <!-- Domain -->
+
+                <div class="form-group">
+
+                    <label for="domain">
+
+                        Preferred Domain
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="domain"
+                        name="domain"
+                        placeholder="Example: Generative AI"
+                        autocomplete="off"
+                        required>
+
+                </div>
+
+                <!-- Experience Level -->
+
+                <div class="form-group">
+
+                    <label for="experience">
+
+                        Experience Level
+
+                    </label>
+
+                    <select
+                        id="experience"
+                        name="experience"
+                        required>
+
+                        <option value="" selected disabled>
+
+                            Select Your Experience Level
+
+                        </option>
+
+                        <option value="Beginner">
+
+                            Beginner
+
+                        </option>
+
+                        <option value="Intermediate">
+
+                            Intermediate
+
+                        </option>
+
+                        <option value="Advanced">
+
+                            Advanced
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Submit Button -->
+
+                <div class="submit-button">
+
+                    <button
+                        type="submit"
+                        class="btn">
+
+                        Continue
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

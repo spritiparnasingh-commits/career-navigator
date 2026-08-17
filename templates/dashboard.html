@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Dashboard
+{% endblock %}
+
+{% block content %}
+
+<!-- ===========================
+     DASHBOARD SECTION
+=========================== -->
+
+<section class="dashboard">
+
+    <div class="container">
+
+        <!-- Dashboard Heading -->
+
+        <div class="dashboard-header">
+
+            <h1>
+
+                Welcome, {{ name }}
+
+            </h1>
+
+            <p>
+
+                Here is a summary of your career preferences.
+                Choose one of the options below to generate
+                your personalized AI content.
+
+            </p>
+
+        </div>
+
+        <!-- User Information -->
+
+        <div class="user-summary">
+
+            <div class="summary-card">
+
+                <h3>
+
+                    👤 Name
+
+                </h3>
+
+                <p>
+
+                    {{ name }}
+
+                </p>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>
+
+                    💼 Career
+
+                </h3>
+
+                <p>
+
+                    {{ career }}
+
+                </p>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>
+
+                    🌐 Domain
+
+                </h3>
+
+                <p>
+
+                    {{ domain }}
+
+                </p>
+
+            </div>
+
+            <div class="summary-card">
+
+                <h3>
+
+                    📈 Experience
+
+                </h3>
+
+                <p>
+
+                    {{ experience }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- Dashboard Cards -->
+
+        <div class="dashboard-grid">
+
+            <!-- Roadmap Card -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+
+                    🗺️
+
+                </div>
+
+                <h2>
+
+                    AI Generated Roadmap
+
+                </h2>
+
+                <p>
+
+                    Generate a detailed learning roadmap specially
+                    designed according to your career, domain,
+                    and experience level.
+
+                </p>
+
+                <ul>
+
+                    <li>✔ Beginner to Advanced Topics</li>
+
+                    <li>✔ Subtopics</li>
+
+                    <li>✔ Suggested Projects</li>
+
+                    <li>✔ Estimated Timeline</li>
+
+                    <li>✔ Learning Sequence</li>
+
+                </ul>
+
+                <a href="{{ url_for('roadmap') }}" class="btn">
+
+                    Generate Roadmap
+
+                </a>
+
+            </div>
+
+            <!-- Resources Card -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+
+                    📚
+
+                </div>
+
+                <h2>
+
+                    Free Learning Resources
+
+                </h2>
+
+                <p>
+
+                    Discover the best free learning resources
+                    available online for your chosen career path.
+
+                </p>
+
+                <ul>
+
+                    <li>✔ Official Documentation</li>
+
+                    <li>✔ YouTube Playlists</li>
+
+                    <li>✔ Free Courses</li>
+
+                    <li>✔ GitHub Repositories</li>
+
+                    <li>✔ Practice Websites</li>
+
+                </ul>
+
+                <a href="{{ url_for('resources') }}" class="btn">
+
+                    View Resources
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

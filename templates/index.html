@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Home
+{% endblock %}
+
+{% block content %}
+
+<!-- ===========================
+     HERO SECTION
+=========================== -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <span class="hero-badge">
+
+                🚀 AI Powered Career Guidance
+
+            </span>
+
+            <h1>
+
+                Career Navigator
+
+            </h1>
+
+            <p>
+
+                Your personal AI-powered career guide that helps you build
+                a structured learning roadmap and discover the best free
+                learning resources available on the internet.
+
+            </p>
+
+            <a href="{{ url_for('user_info') }}" class="btn">
+
+                Get Started
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+     FEATURES SECTION
+=========================== -->
+
+<section class="features">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+
+                How Career Navigator Helps You
+
+            </h2>
+
+            <p>
+
+                Everything you need to start your learning journey in one place.
+
+            </p>
+
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    🗺️
+
+                </div>
+
+                <h3>
+
+                    AI Generated Roadmaps
+
+                </h3>
+
+                <p>
+
+                    Receive a personalized roadmap with topics, subtopics,
+                    project ideas, and an estimated timeline based on your
+                    chosen career and experience level.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    📚
+
+                </div>
+
+                <h3>
+
+                    Free Learning Resources
+
+                </h3>
+
+                <p>
+
+                    Get carefully selected free resources including official
+                    documentation, YouTube playlists, GitHub repositories,
+                    and free online courses.
+
+                </p>
+
+            </div>
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+
+                    🎯
+
+                </div>
+
+                <h3>
+
+                    Personalized Learning
+
+                </h3>
+
+                <p>
+
+                    Learn according to your career goal, preferred domain,
+                    and current experience level with AI-generated guidance.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+     HOW IT WORKS
+=========================== -->
+
+<section class="how-it-works">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>
+
+                How It Works
+
+            </h2>
+
+            <p>
+
+                Get your personalized career guidance in just three simple steps.
+
+            </p>
+
+        </div>
+
+        <div class="steps-grid">
+
+            <div class="step-card">
+
+                <div class="step-number">
+
+                    1
+
+                </div>
+
+                <h3>
+
+                    Enter Your Details
+
+                </h3>
+
+                <p>
+
+                    Tell us your name, career interest, preferred domain,
+                    and experience level.
+
+                </p>
+
+            </div>
+
+            <div class="step-card">
+
+                <div class="step-number">
+
+                    2
+
+                </div>
+
+                <h3>
+
+                    Choose an Option
+
+                </h3>
+
+                <p>
+
+                    Select whether you want an AI-generated roadmap
+                    or free learning resources.
+
+                </p>
+
+            </div>
+
+            <div class="step-card">
+
+                <div class="step-number">
+
+                    3
+
+                </div>
+
+                <h3>
+
+                    Start Learning
+
+                </h3>
+
+                <p>
+
+                    Follow your personalized roadmap and learn using
+                    high-quality free resources.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+     CALL TO ACTION
+=========================== -->
+
+<section class="cta">
+
+    <div class="container">
+
+        <div class="cta-card">
+
+            <h2>
+
+                Ready to Build Your Career?
+
+            </h2>
+
+            <p>
+
+                Let AI guide your learning journey with personalized roadmaps
+                and free learning resources.
+
+            </p>
+
+            <a href="{{ url_for('user_info') }}" class="btn">
+
+                Get Started
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
