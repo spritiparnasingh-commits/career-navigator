@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | AI Mock Interview
+{% endblock %}
+
+{% block content %}
+<section class="interview-section">
+    <div class="container">
+        <div class="page-header">
+            <h1>🎙️ AI Mock Interview</h1>
+            <p>Practice tailored interview questions for <strong>{{ career }}</strong> ({{ domain }}) at the <strong>{{ experience }}</strong> level. Answer by typing or speaking!</p>
+        </div>
+
+        <!-- Setup / Start Card -->
+        <div id="interview-start-card" class="glass card-center">
+            <div class="start-content">
+                <div class="hero-badge">AI Interviewer Ready</div>
+                <h2>Prepare for your upcoming interviews</h2>
+                <p>The AI will generate 5 questions tailored to your profile. You can speak or type your responses. After each answer, you'll receive instant detailed feedback and scoring.</p>
+                
+                <div class="mode-selectors">
+                    <label class="radio-label">
+                        <input type="radio" name="inputMode" value="both" checked>
+                        <span>🎤 Voice & ⌨️ Text Mode</span>
+                    </label>
+                </div>
+
+                <button id="btn-start-interview" class="btn btn-large" onclick="startInterview()">
+                    <i class="fa-solid fa-play"></i> Start Interview Session
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading View -->
+        <div id="interview-loading" class="glass card-center hidden">
+            <div class="ai-loading">
+                <div class="loader"></div>
+                <h3 id="loading-title">Generating Tailored Questions...</h3>
+                <p>Analyzing your career profile ({{ career }} - {{ domain }})...</p>
+            </div>
+        </div>
+
+        <!-- Q&A Interface -->
+        <div id="interview-qa-card" class="glass hidden">
+            <!-- Progress Bar Header -->
+            <div class="interview-header-bar">
+                <div class="question-badge">
+                    Question <span id="current-q-index">1</span> of <span id="total-q-count">5</span>
+                </div>
+                <div class="q-progress-container">
+                    <div class="q-progress-fill" id="q-progress-fill" style="width: 20%;"></div>
+                </div>
+                <div class="score-badge-live">
+                    Avg Score: <strong id="live-avg-score">--</strong>/10
+                </div>
+            </div>
+
+            <!-- Question Box -->
+            <div class="question-box">
+                <div class="question-text-row">
+                    <h3 id="question-text">Loading question...</h3>
+                    <button id="btn-tts" class="btn-icon" title="Listen to question" onclick="speakQuestion()">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+                <span class="category-tag" id="question-category">Technical / Behavioral</span>
+            </div>
+
+            <!-- Answer Box -->
+            <div class="answer-box">
+                <div class="answer-controls-header">
+                    <label for="user-answer-input"><strong>Your Response:</strong></label>
+                    <div class="voice-controls">
+                        <button id="btn-mic" class="btn-mic" onclick="toggleVoiceRecording()">
+                            <i class="fa-solid fa-microphone"></i>
+                            <span id="mic-label">Click to Speak</span>
+                        </button>
+                        <span id="speech-status" class="speech-status"></span>
+                    </div>
+                </div>
+
+                <textarea id="user-answer-input" rows="5" placeholder="Type your answer here or click the microphone to speak..."></textarea>
+
+                <div class="answer-actions">
+                    <button id="btn-submit-answer" class="btn" onclick="submitAnswer()">
+                        <i class="fa-solid fa-paper-plane"></i> Submit Answer for AI Evaluation
+                    </button>
+                </div>
+            </div>
+
+            <!-- Single Question Feedback Container -->
+            <div id="feedback-result" class="feedback-container hidden">
+                <div class="feedback-header">
+                    <h4>AI Feedback & Evaluation</h4>
+                    <div class="score-badge" id="eval-score-badge">Score: 8/10</div>
+                </div>
+                
+                <div class="feedback-grid">
+                    <div class="feedback-card strength">
+                        <h5><i class="fa-solid fa-circle-check"></i> Key Strengths</h5>
+                        <p id="eval-strengths"></p>
+                    </div>
+                    <div class="feedback-card improvement">
+                        <h5><i class="fa-solid fa-circle-exclamation"></i> Key Improvements</h5>
+                        <p id="eval-improvements"></p>
+                    </div>
+                </div>
+
+                <div class="feedback-card model-answer">
+                    <h5><i class="fa-solid fa-lightbulb"></i> Recommended Sample Answer</h5>
+                    <p id="eval-model-answer"></p>
+                </div>
+
+                <div class="next-action-row">
+                    <button id="btn-next-question" class="btn" onclick="nextQuestion()">
+                        Next Question <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overall Summary Card -->
+        <div id="interview-summary-card" class="glass hidden">
+            <div class="summary-header">
+                <div class="hero-badge">Session Completed</div>
+                <h2>Interview Performance Report</h2>
+                <p>Overall evaluation for {{ name }} ({{ career }} - {{ domain }})</p>
+            </div>
+
+            <div class="summary-score-hero">
+                <div class="score-circle">
+                    <span id="final-score-val">0</span>
+                    <small>/ 10</small>
+                </div>
+                <div class="score-meta">
+                    <h3 id="final-performance-grade">Evaluating...</h3>
+                    <p id="final-score-message">Great job completing your mock interview session!</p>
+                </div>
+            </div>
+
+            <div class="summary-details-grid">
+                <div class="summary-card glass">
+                    <h4><i class="fa-solid fa-star"></i> Performance Breakdown</h4>
+                    <ul id="summary-strengths-list" class="styled-list"></ul>
+                </div>
+                <div class="summary-card glass">
+                    <h4><i class="fa-solid fa-bullseye"></i> Targeted Recommendations</h4>
+                    <ul id="summary-recommendations-list" class="styled-list"></ul>
+                </div>
+            </div>
+
+            <div class="summary-actions">
+                <button class="btn" onclick="resetInterview()">
+                    <i class="fa-solid fa-rotate-right"></i> Take Another Mock Interview
+                </button>
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline">
+                    Return to Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

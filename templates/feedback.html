@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Community Feedback & Reviews
+{% endblock %}
+
+{% block content %}
+<section class="feedback-section">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1><i class="fa-solid fa-comments"></i> Community Feedback & Reviews</h1>
+            <p>Tell us how Career Navigator is helping your learning journey. Your insights shape future AI features!</p>
+        </div>
+
+        <!-- Rating Overview Banner -->
+        <div class="feedback-stats-banner glass">
+            <div class="stats-hero-col">
+                <div class="stats-big-score">{{ stats.average_rating }}</div>
+                <div class="stats-stars">
+                    {% for i in range(1, 6) %}
+                        {% if i <= stats.average_rating|round(0, 'floor')|int %}
+                            <i class="fa-solid fa-star"></i>
+                        {% elif i - stats.average_rating < 0.8 and i - stats.average_rating > 0.2 %}
+                            <i class="fa-solid fa-star-half-stroke"></i>
+                        {% else %}
+                            <i class="fa-regular fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div class="stats-count-label">Based on <strong>{{ stats.total_reviews }}</strong> verified reviews</div>
+                <div class="recommend-pill">
+                    <i class="fa-solid fa-thumbs-up"></i> {{ stats.recommend_percent }}% Recommended
+                </div>
+            </div>
+
+            <div class="stats-bars-col">
+                {% for star in [5, 4, 3, 2, 1] %}
+                <div class="star-row">
+                    <span class="star-label">{{ star }} <i class="fa-solid fa-star"></i></span>
+                    <div class="star-bar-bg">
+                        <div class="star-bar-fill" style="width: {{ stats.stars_percent[star] }}%;"></div>
+                    </div>
+                    <span class="star-count">{{ stats.stars_count[star] }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Main Content Layout: Form & Reviews -->
+        <div class="feedback-layout">
+            <!-- Left Column: Submit Form -->
+            <div class="feedback-form-col">
+                <div class="glass card-padding">
+                    <div class="section-intro">
+                        <h2><i class="fa-solid fa-pen-to-square"></i> Share Your Thoughts</h2>
+                        <p>Rate your experience and let us know what you loved or what we can do better.</p>
+                    </div>
+
+                    <form id="feedback-form" onsubmit="submitFeedback(event)">
+                        <!-- Star Rating Selector -->
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-star"></i> Overall Rating <span class="required">*</span></label>
+                            <div class="interactive-star-rating" id="star-rating-picker">
+                                <i class="fa-solid fa-star star-item" data-value="1"></i>
+                                <i class="fa-solid fa-star star-item" data-value="2"></i>
+                                <i class="fa-solid fa-star star-item" data-value="3"></i>
+                                <i class="fa-solid fa-star star-item" data-value="4"></i>
+                                <i class="fa-solid fa-star star-item active" data-value="5"></i>
+                            </div>
+                            <input type="hidden" id="feedback-rating" name="rating" value="5">
+                            <div class="rating-descriptor" id="rating-label">5.0 - Excellent! Exceeded expectations</div>
+                        </div>
+
+                        <!-- Name & Role -->
+                        <div class="form-row-2">
+                            <div class="form-group">
+                                <label for="feedback-name"><i class="fa-solid fa-user"></i> Your Name <span class="required">*</span></label>
+                                <input type="text" id="feedback-name" name="name" value="{{ name }}" placeholder="e.g. Alex Chen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="feedback-career"><i class="fa-solid fa-briefcase"></i> Target Career / Role</label>
+                                <input type="text" id="feedback-career" name="career" value="{{ career }}" placeholder="e.g. AI Engineer">
+                            </div>
+                        </div>
+
+                        <!-- Category Selector -->
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-tag"></i> Feedback Topic</label>
+                            <div class="category-pills" id="category-pills">
+                                <button type="button" class="pill-btn active" data-category="General Platform">General Platform</button>
+                                <button type="button" class="pill-btn" data-category="AI Roadmap">AI Roadmap</button>
+                                <button type="button" class="pill-btn" data-category="Resume ATS Optimizer">Resume ATS Optimizer</button>
+                                <button type="button" class="pill-btn" data-category="Mock Interview">Mock Interview</button>
+                                <button type="button" class="pill-btn" data-category="Learning Resources">Learning Resources</button>
+                                <button type="button" class="pill-btn" data-category="Feature Request">Feature Request</button>
+                            </div>
+                            <input type="hidden" id="feedback-category" name="category" value="General Platform">
+                        </div>
+
+                        <!-- Review Textarea -->
+                        <div class="form-group">
+                            <label for="feedback-message"><i class="fa-solid fa-comment-dots"></i> Detailed Feedback <span class="required">*</span></label>
+                            <textarea id="feedback-message" name="message" rows="4" placeholder="What worked well? How did the roadmaps, interview prep, or ATS analyzer help you? Any feature suggestions?" required></textarea>
+                        </div>
+
+                        <!-- Recommendation Toggle -->
+                        <div class="form-group switch-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="feedback-recommend" name="recommend" checked>
+                                <span class="slider round"></span>
+                            </label>
+                            <span class="switch-label">I would recommend Career Navigator to peers & students</span>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="submit-button" style="margin-top: 20px;">
+                            <button type="submit" id="btn-submit-feedback" class="btn btn-large btn-block">
+                                <i class="fa-solid fa-paper-plane"></i> Submit Feedback
+                            </button>
+                        </div>
+
+                        <div id="feedback-alert" class="feedback-status-msg hidden"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Column: Existing Reviews -->
+            <div class="feedback-reviews-col">
+                <div class="reviews-header">
+                    <h2><i class="fa-solid fa-comments"></i> Verified Reviews (<span id="reviews-count-header">{{ feedbacks|length }}</span>)</h2>
+                    <div class="reviews-filter-wrap">
+                        <select id="reviews-filter" onchange="filterReviewsByCategory(this.value)">
+                            <option value="ALL">All Categories</option>
+                            <option value="AI Roadmap">AI Roadmap</option>
+                            <option value="Resume ATS Optimizer">Resume ATS Optimizer</option>
+                            <option value="Mock Interview">Mock Interview</option>
+                            <option value="Learning Resources">Learning Resources</option>
+                            <option value="General Platform">General Platform</option>
+                            <option value="Feature Request">Feature Request</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="reviews-list" id="reviews-list-container">
+                    {% for item in feedbacks %}
+                    <div class="review-card glass" data-category="{{ item.category }}">
+                        <div class="review-top">
+                            <div class="review-author-meta">
+                                <div class="author-avatar">
+                                    {{ item.name[:1]|upper }}
+                                </div>
+                                <div>
+                                    <h4 class="author-name">{{ item.name }}</h4>
+                                    <span class="author-role">{{ item.career or "Student / Learner" }}</span>
+                                </div>
+                            </div>
+                            <div class="review-rating-stars">
+                                {% for s in range(1, 6) %}
+                                    {% if s <= item.rating %}
+                                        <i class="fa-solid fa-star"></i>
+                                    {% else %}
+                                        <i class="fa-regular fa-star"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="review-category-badge">
+                            <span class="badge-tag"><i class="fa-solid fa-tag"></i> {{ item.category }}</span>
+                            {% if item.recommend %}
+                            <span class="badge-recommend"><i class="fa-solid fa-circle-check"></i> Recommends</span>
+                            {% endif %}
+                            <span class="badge-date">{{ item.date }}</span>
+                        </div>
+
+                        <p class="review-text">"{{ item.message }}"</p>
+                    </div>
+                    {% else %}
+                    <div class="placeholder glass">
+                        <p>No reviews submitted yet. Be the first to share your experience!</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

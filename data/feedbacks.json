@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Aarav Sharma",
+    "career": "Full Stack Developer",
+    "rating": 5,
+    "category": "AI Roadmap",
+    "message": "The personalized roadmap saved me weeks of confusion! It laid out every milestone from backend architecture to production deployments with clear timelines.",
+    "recommend": true,
+    "date": "2026-08-28"
+  },
+  {
+    "id": 2,
+    "name": "Pooja Patel",
+    "career": "Data Scientist",
+    "rating": 5,
+    "category": "Resume ATS Optimizer",
+    "message": "The ATS analyzer highlighted missing industry keywords I had completely overlooked. After polishing my resume based on the suggestions, I started getting recruiter callbacks.",
+    "recommend": true,
+    "date": "2026-08-30"
+  },
+  {
+    "id": 3,
+    "name": "Rohan Deshmukh",
+    "career": "Cloud & DevOps Engineer",
+    "rating": 5,
+    "category": "Mock Interview",
+    "message": "The voice-enabled mock interview felt surprisingly realistic. The instant breakdown of strengths and model answers helped me refine my system design explanations.",
+    "recommend": true,
+    "date": "2026-09-02"
+  },
+  {
+    "id": 4,
+    "name": "Sneha Iyer",
+    "career": "Machine Learning Engineer",
+    "rating": 4,
+    "category": "Learning Resources",
+    "message": "Great curation of free YouTube playlists and official docs. Love that the resources are genuinely free without paywalls.",
+    "recommend": true,
+    "date": "2026-09-04"
+  }
+]

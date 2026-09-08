@@ -65,6 +65,102 @@
 
                 </li>
 
+                {% if session.get('name') %}
+
+                <li>
+
+                    <a href="{{ url_for('dashboard') }}">
+
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('roadmap') }}">
+
+                        Roadmap
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('resources') }}">
+
+                        Resources
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('mock_interview') }}">
+
+                        Mock Interview
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('optimize') }}">
+
+                        Resume & LinkedIn
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('progress') }}">
+
+                        Progress Tracker
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('jobs') }}">
+
+                        Job Feed
+
+                    </a>
+
+                </li>
+
+                <li>
+                    <a href="{{ url_for('feedback') }}">
+                        Feedback
+                    </a>
+                </li>
+
+                <li>
+
+                    <a href="{{ url_for('reset') }}" class="nav-reset">
+
+                        Reset
+
+                    </a>
+
+                </li>
+
+                {% else %}
+
+                <li>
+                    <a href="{{ url_for('feedback') }}">
+                        Feedback
+                    </a>
+                </li>
+
                 <li>
 
                     <a href="{{ url_for('user_info') }}">
@@ -74,6 +170,8 @@
                     </a>
 
                 </li>
+
+                {% endif %}
 
             </ul>
 
@@ -107,9 +205,7 @@
             </p>
 
             <p>
-
-                Built with Flask & AI
-
+                Built with Flask & AI • <a href="{{ url_for('feedback') }}" style="color: var(--primary-color, #4361ee); font-weight: 500; text-decoration: underline;">Share Your Feedback</a>
             </p>
 
         </div>

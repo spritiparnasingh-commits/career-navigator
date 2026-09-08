@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Personalized Job & Internship Feed
+{% endblock %}
+
+{% block content %}
+<section class="jobs-section">
+    <div class="container">
+        <div class="page-header">
+            <h1>💼 Personalized Job & Internship Feed</h1>
+            <p>Curated opportunities tailored for <strong>{{ career }}</strong> in <strong>{{ domain }}</strong> ({{ experience }} level).</p>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="glass card-padding filter-bar">
+            <div class="filter-controls">
+                <div class="search-input-box">
+                    <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                    <input type="text" id="job-search-input" placeholder="Search by job title, company, or skill..." onkeyup="filterJobs()">
+                </div>
+                <div class="filter-pills">
+                    <button class="pill active" onclick="setJobTypeFilter('all', this)">All Opportunities</button>
+                    <button class="pill" onclick="setJobTypeFilter('Internship', this)">Internships</button>
+                    <button class="pill" onclick="setJobTypeFilter('Full-Time', this)">Full-Time</button>
+                    <button class="pill" onclick="setJobTypeFilter('Remote', this)">Remote</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="jobs-loading" class="ai-loading">
+            <div class="loader"></div>
+            <h3>Fetching Personalized Opportunities...</h3>
+            <p>Scanning top job platforms for {{ domain }} roles tailored for {{ experience }} level...</p>
+        </div>
+
+        <!-- Jobs Grid Container -->
+        <div id="jobs-grid" class="jobs-grid hidden"></div>
+    </div>
+</section>
+{% endblock %}

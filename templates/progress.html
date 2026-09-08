@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Progress Tracker
+{% endblock %}
+
+{% block content %}
+<section class="progress-section">
+    <div class="container">
+        <div class="page-header">
+            <h1>📊 Learning Progress Tracker</h1>
+            <p>Track your target domain topics for <strong>{{ career }}</strong> ({{ domain }}). Check off completed milestones to calculate your career readiness.</p>
+        </div>
+
+        <!-- Overall Progress Header Card -->
+        <div class="glass card-padding progress-overview-card">
+            <div class="overview-grid">
+                <div class="stat-box">
+                    <div class="stat-value" id="overall-percentage">0%</div>
+                    <div class="stat-label">Overall Completion</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value"><span id="completed-count">0</span> / <span id="total-count">0</span></div>
+                    <div class="stat-label">Topics Completed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="readiness-level">Getting Started</div>
+                    <div class="stat-label">Readiness Level</div>
+                </div>
+            </div>
+
+            <div class="main-progress-bar-container">
+                <div class="main-progress-bar-fill" id="main-progress-fill" style="width: 0%;"></div>
+            </div>
+
+            <div class="tracker-actions-row">
+                <button class="btn btn-outline btn-sm" onclick="markAllTopics(true)">
+                    <i class="fa-solid fa-check-double"></i> Mark All Complete
+                </button>
+                <button class="btn btn-outline btn-sm" onclick="markAllTopics(false)">
+                    <i class="fa-solid fa-arrow-rotate-left"></i> Reset Progress
+                </button>
+            </div>
+        </div>
+
+        <!-- Dynamic Roadmap Topics List -->
+        <div id="progress-topics-container" class="topics-container">
+            <div class="ai-loading">
+                <div class="loader"></div>
+                <h3>Loading Progress Tracker Topics...</h3>
+                <p>Syncing roadmap phases for {{ domain }}...</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

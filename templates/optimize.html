@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}
+Career Navigator | Resume & LinkedIn Optimizer
+{% endblock %}
+
+{% block content %}
+<section class="optimize-section">
+    <div class="container">
+        <div class="page-header">
+            <h1>📄 Resume & LinkedIn Optimizer</h1>
+            <p>Supercharge your job application assets. Analyze ATS compatibility and refine your LinkedIn presence for <strong>{{ career }}</strong>.</p>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="optimize-tabs">
+            <button class="tab-btn active" id="tab-btn-resume" onclick="switchTab('resume')">
+                <i class="fa-solid fa-file-invoice"></i> Resume ATS Analyzer
+            </button>
+            <button class="tab-btn" id="tab-btn-linkedin" onclick="switchTab('linkedin')">
+                <i class="fa-brands fa-linkedin"></i> LinkedIn Profile Optimizer
+            </button>
+        </div>
+
+        <!-- TAB 1: RESUME ATS ANALYZER -->
+        <div id="tab-content-resume" class="tab-content active">
+            <div class="glass card-padding">
+                <div class="section-intro">
+                    <h2><i class="fa-solid fa-cloud-arrow-up"></i> Upload Your Resume</h2>
+                    <p>Upload your resume in PDF, DOCX, TXT, or image format. AI will scan for ATS parser compatibility, keyword coverage, and overall quality.</p>
+                </div>
+
+                <form id="resume-upload-form" onsubmit="analyzeResume(event)" enctype="multipart/form-data">
+                    <div class="upload-dropzone" id="dropzone">
+                        <i class="fa-solid fa-file-pdf upload-icon"></i>
+                        <h3>Drag & drop your resume file here</h3>
+                        <p>Supports .pdf, .docx, .txt, .png, .jpg (Max file size: 5MB)</p>
+                        <input type="file" id="resume-file-input" name="resume_file" accept=".pdf,.docx,.txt,.png,.jpg,.jpeg,.webp" required onchange="handleFileSelect(this)">
+                        <label for="resume-file-input" class="btn btn-outline" style="margin-top: 15px;">Choose File</label>
+                        <div id="selected-file-name" class="file-name-display"></div>
+                    </div>
+
+                    <div class="submit-button">
+                        <button type="submit" id="btn-analyze-resume" class="btn btn-large">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Resume ATS Score
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Loading Spinner -->
+                <div id="resume-loading" class="ai-loading hidden">
+                    <div class="loader"></div>
+                    <h3>Scanning Resume for ATS Compatibility...</h3>
+                    <p>Comparing skills against {{ domain }} industry standards...</p>
+                </div>
+
+                <!-- Analysis Results -->
+                <div id="resume-results" class="results-container hidden">
+                    <div class="ats-hero-box">
+                        <div class="ats-circle" id="ats-score-circle">
+                            <span id="ats-score-number">0</span>
+                            <small>%</small>
+                        </div>
+                        <div class="ats-meta">
+                            <h3 id="ats-status-badge">ATS Score</h3>
+                            <p id="ats-score-verdict">Analyzing...</p>
+                        </div>
+                    </div>
+
+                    <div class="results-grid">
+                        <div class="result-card glass">
+                            <h4><i class="fa-solid fa-key"></i> Domain Keywords Check</h4>
+                            <div id="resume-keywords"></div>
+                        </div>
+
+                        <div class="result-card glass">
+                            <h4><i class="fa-solid fa-list-check"></i> Formatting & Structure</h4>
+                            <ul id="resume-formatting" class="styled-list"></ul>
+                        </div>
+                    </div>
+
+                    <div class="result-card glass" style="margin-top: 25px;">
+                        <h4><i class="fa-solid fa-lightbulb"></i> Actionable Content Improvements</h4>
+                        <ul id="resume-suggestions" class="styled-list"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: LINKEDIN PROFILE OPTIMIZER -->
+        <div id="tab-content-linkedin" class="tab-content hidden">
+            <div class="glass card-padding">
+                <div class="section-intro">
+                    <h2><i class="fa-brands fa-linkedin"></i> LinkedIn Profile Enhancer</h2>
+                    <p>Enter your profile link and current profile details. AI will rewrite your headline, summary, and recommend high-demand skills.</p>
+                </div>
+
+                <form id="linkedin-form" onsubmit="optimizeLinkedIn(event)">
+                    <div class="form-group">
+                        <label for="linkedin-url"><i class="fa-solid fa-link"></i> LinkedIn Profile URL (Optional):</label>
+                        <input type="url" id="linkedin-url" placeholder="https://www.linkedin.com/in/yourname">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkedin-headline">Current Headline:</label>
+                        <input type="text" id="linkedin-headline" placeholder="e.g., Computer Science Student | Aspiring Software Engineer" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkedin-about">Current About / Bio Section:</label>
+                        <textarea id="linkedin-about" rows="4" placeholder="Paste your current About section or brief summary..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkedin-skills">Top Skills / Experience Notes:</label>
+                        <input type="text" id="linkedin-skills" placeholder="e.g., Python, React, Data Structures, Git">
+                    </div>
+
+                    <div class="submit-button">
+                        <button type="submit" id="btn-optimize-linkedin" class="btn btn-large">
+                            <i class="fa-solid fa-rocket"></i> Optimize LinkedIn Profile
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Loading Spinner -->
+                <div id="linkedin-loading" class="ai-loading hidden">
+                    <div class="loader"></div>
+                    <h3>Crafting Premium LinkedIn Copy...</h3>
+                    <p>Generating high-impact headline options and recruiter-focused About section...</p>
+                </div>
+
+                <!-- LinkedIn Results -->
+                <div id="linkedin-results" class="results-container hidden">
+                    <div class="result-card glass">
+                        <h4><i class="fa-solid fa-heading"></i> High-Impact Headline Options</h4>
+                        <div id="linkedin-headlines-container" class="options-list"></div>
+                    </div>
+
+                    <div class="result-card glass" style="margin-top: 25px;">
+                        <h4><i class="fa-solid fa-paragraph"></i> Optimized 'About' Section</h4>
+                        <div class="copy-box">
+                            <p id="linkedin-about-output" class="formatted-text"></p>
+                            <button class="btn btn-sm btn-outline" onclick="copyToClipboard('linkedin-about-output')">
+                                <i class="fa-solid fa-copy"></i> Copy Text
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="results-grid" style="margin-top: 25px;">
+                        <div class="result-card glass">
+                            <h4><i class="fa-solid fa-tags"></i> High-Value Skills to Add</h4>
+                            <div id="linkedin-skills-output" class="tags-container"></div>
+                        </div>
+
+                        <div class="result-card glass">
+                            <h4><i class="fa-solid fa-camera"></i> Profile Picture & Branding Tips</h4>
+                            <ul id="linkedin-photo-tips" class="styled-list"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

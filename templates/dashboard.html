@@ -104,6 +104,42 @@ Career Navigator | Dashboard
 
         </div>
 
+        <!-- Progress Summary Widget -->
+
+        <div class="dashboard-progress-widget glass">
+
+            <div class="widget-header">
+
+                <div>
+
+                    <h3>🎯 Learning Progress Overview</h3>
+
+                    <p>Track your target domain skills and roadmap completion</p>
+
+                </div>
+
+                <a href="{{ url_for('progress') }}" class="btn btn-outline">Manage Tracker</a>
+
+            </div>
+
+            <div class="progress-bar-container">
+
+                <div class="progress-bar-fill" id="dashboard-progress-fill" style="width: 0%;"></div>
+
+            </div>
+
+            <div class="progress-meta">
+
+                <span id="dashboard-progress-text">0% Completed</span>
+
+                <span id="dashboard-topics-text">0 of 0 Topics Completed</span>
+
+            </div>
+
+        </div>
+
+
+
         <!-- Dashboard Cards -->
 
         <div class="dashboard-grid">
@@ -136,13 +172,9 @@ Career Navigator | Dashboard
 
                     <li>✔ Beginner to Advanced Topics</li>
 
-                    <li>✔ Subtopics</li>
+                    <li>✔ Subtopics & Timeline</li>
 
                     <li>✔ Suggested Projects</li>
-
-                    <li>✔ Estimated Timeline</li>
-
-                    <li>✔ Learning Sequence</li>
 
                 </ul>
 
@@ -179,11 +211,7 @@ Career Navigator | Dashboard
 
                 <ul>
 
-                    <li>✔ Official Documentation</li>
-
-                    <li>✔ YouTube Playlists</li>
-
-                    <li>✔ Free Courses</li>
+                    <li>✔ Official Docs & Video Playlists</li>
 
                     <li>✔ GitHub Repositories</li>
 
@@ -197,6 +225,169 @@ Career Navigator | Dashboard
 
                 </a>
 
+            </div>
+
+            <!-- Mock Interview Card -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+
+                    🎙️
+
+                </div>
+
+                <h2>
+
+                    Mock Interview (Text & Voice)
+
+                </h2>
+
+                <p>
+
+                    Practice tailored AI-driven interview questions with voice speech-to-text or typing, instant scoring, and personalized feedback.
+
+                </p>
+
+                <ul>
+
+                    <li>✔ Voice & Text Response Modes</li>
+
+                    <li>✔ Tailored Question Generation</li>
+
+                    <li>✔ Real-time Scoring & Summary</li>
+
+                </ul>
+
+                <a href="{{ url_for('mock_interview') }}" class="btn">
+
+                    Start Mock Interview
+
+                </a>
+
+            </div>
+
+
+
+            <!-- Resume & LinkedIn Optimizer Card -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+
+                    📄
+
+                </div>
+
+                <h2>
+
+                    Resume & LinkedIn Optimizer
+
+                </h2>
+
+                <p>
+
+                    Upload your resume for instant ATS analysis & optimization, and polish your LinkedIn profile headline, summary, and skills.
+
+                </p>
+
+                <ul>
+
+                    <li>✔ ATS Compatibility Audit</li>
+
+                    <li>✔ Keyword & Formatting Tips</li>
+
+                    <li>✔ LinkedIn Profile Optimization</li>
+
+                </ul>
+
+                <a href="{{ url_for('optimize') }}" class="btn">
+
+                    Optimize Profile
+
+                </a>
+
+            </div>
+
+
+
+            <!-- Progress Tracker Card -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+
+                    📊
+
+                </div>
+
+                <h2>
+
+                    Progress Tracker
+
+                </h2>
+
+                <p>
+
+                    Track your learning milestones step-by-step. Mark completed topics and monitor your career readiness percentage.
+
+                </p>
+
+                <ul>
+
+                    <li>✔ Interactive Topic Checklists</li>
+
+                    <li>✔ Live Completion Percentage</li>
+
+                    <li>✔ Phase-by-Phase Tracking</li>
+
+                </ul>
+
+                <a href="{{ url_for('progress') }}" class="btn">
+
+                    Open Progress Tracker
+
+                </a>
+
+            </div>
+
+
+
+            <!-- Job Feed Card -->
+
+            <div class="dashboard-card">
+
+                <div class="card-icon">
+
+                    💼
+
+                </div>
+
+                <h2>
+
+                    Job & Internship Feed
+
+                </h2>
+
+                <p>
+
+                    Browse AI-curated job and internship opportunities tailored specifically to your target domain with AI match scores.
+
+                </p>
+
+                <ul>
+
+                    <li>✔ Domain-Matched Openings</li>
+
+                    <li>✔ AI Compatibility Score</li>
+
+                    <li>✔ Search & Direct Apply Links</li>
+
+                </ul>
+
+                <a href="{{ url_for('jobs') }}" class="btn">
+                    Explore Job Feed
+                </a>
             </div>
 
         </div>
